@@ -18,6 +18,8 @@ title: The Unofficial Linux Guide
     -   [CHMOD](#chmod)
 -   [Tools](#tools)
     -   [Pandoc](#pandoc)
+        -   [Converting](#converting)
+        -   [HTML Templates](#html-templates)
     -   [Wget](#wget)
     -   [Apt-Cacher-NG](#apt-cacher-ng)
 -   [Containers](#containers)
@@ -26,7 +28,6 @@ title: The Unofficial Linux Guide
 -   [File Manipulation](#file-manipulation)
     -   [find](#find)
     -   [rsync](#rsync)
-        -   [New](#new)
 -   [Shell](#shell)
     -   [Detach processes from shell](#detach-processes-from-shell)
 
@@ -182,6 +183,41 @@ example:
 
 ## Pandoc
 
+### Converting
+
+To generate an html file from a markdown:
+
+    pandoc -s input.md -o output.html
+
+To generate a markdown from an html:
+
+    pandoc -s -r html <WEBSITE> -o <OUTPUT>
+
+Example:
+
+    pandoc -s -r html https://en.wikipedia.org/wiki/Pandoc -o pandoc.txt
+
+Adding in `-t gfm-raw_html` can clean up the text file making it easier
+to read. Example:
+
+    pandoc -s -t gfm-raw_html -r html https://en.wikipedia.org/wiki/Pandoc -o pandoc.txt
+
+### HTML Templates
+
+To create an HTML template with pandoc first use:
+
+    pandoc -D html > <TEMPLATE_NAME>
+
+Example:
+
+    pandoc-D html > template.html
+
+You can then open and edit template.html and make your changes.
+
+Then use the template with a markdown file to generate a html file.
+
+    pandoc -s --template template.html input.md -o output.html
+
 ## Wget
 
 ## Apt-Cacher-NG
@@ -197,8 +233,6 @@ example:
 ## find
 
 ## rsync
-
-### New
 
 Important:
 

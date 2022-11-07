@@ -112,7 +112,11 @@
 </ul></li>
 <li><a href="#tools">Tools</a>
 <ul>
-<li><a href="#pandoc">Pandoc</a></li>
+<li><a href="#pandoc">Pandoc</a>
+<ul>
+<li><a href="#converting">Converting</a></li>
+<li><a href="#html-templates">HTML Templates</a></li>
+</ul></li>
 <li><a href="#wget">Wget</a></li>
 <li><a href="#apt-cacher-ng">Apt-Cacher-NG</a></li>
 </ul></li>
@@ -124,10 +128,7 @@
 <li><a href="#file-manipulation">File Manipulation</a>
 <ul>
 <li><a href="#find">find</a></li>
-<li><a href="#rsync">rsync</a>
-<ul>
-<li><a href="#new">New</a></li>
-</ul></li>
+<li><a href="#rsync">rsync</a></li>
 </ul></li>
 <li><a href="#shell">Shell</a>
 <ul>
@@ -207,6 +208,23 @@ sudo btrfs scrub status /</code></pre>
 <p>0 none — 000</p>
 <h1 id="tools">Tools</h1>
 <h2 id="pandoc">Pandoc</h2>
+<h3 id="converting">Converting</h3>
+<p>To generate an html file from a markdown:</p>
+<pre><code>pandoc -s input.md -o output.html</code></pre>
+<p>To generate a markdown from an html:</p>
+<pre><code>pandoc -s -r html &lt;WEBSITE&gt; -o &lt;OUTPUT&gt;</code></pre>
+<p>Example:</p>
+<pre><code>pandoc -s -r html https://en.wikipedia.org/wiki/Pandoc -o pandoc.txt</code></pre>
+<p>Adding in <code>-t gfm-raw_html</code> can clean up the text file making it easier to read. Example:</p>
+<pre><code>pandoc -s -t gfm-raw_html -r html https://en.wikipedia.org/wiki/Pandoc -o pandoc.txt</code></pre>
+<h3 id="html-templates">HTML Templates</h3>
+<p>To create an HTML template with pandoc first use:</p>
+<pre><code>pandoc -D html &gt; &lt;TEMPLATE_NAME&gt;</code></pre>
+<p>Example:</p>
+<pre><code>pandoc-D html &gt; template.html</code></pre>
+<p>You can then open and edit template.html and make your changes.</p>
+<p>Then use the template with a markdown file to generate a html file.</p>
+<pre><code>pandoc -s --template template.html input.md -o output.html</code></pre>
 <h2 id="wget">Wget</h2>
 <h2 id="apt-cacher-ng">Apt-Cacher-NG</h2>
 <h1 id="containers">Containers</h1>
@@ -215,7 +233,6 @@ sudo btrfs scrub status /</code></pre>
 <h1 id="file-manipulation">File Manipulation</h1>
 <h2 id="find">find</h2>
 <h2 id="rsync">rsync</h2>
-<h3 id="new">New</h3>
 <p>Important:</p>
 <pre><code>rsync dir1/ dir2</code></pre>
 <p>This copies the files inside dir1 without creating a new dir1 directory in dir2.</p>
