@@ -89,6 +89,11 @@
     <h1 class="title">The Unofficial Linux Guide</h1>
               </header>
       <ul>
+      <li><a href="#users-groups-and-modify">Users, Groups, and Modify</a>
+      <ul>
+      <li><a href="#users-and-modify">Users and Modify</a></li>
+      <li><a href="#new">New</a></li>
+      </ul></li>
       <li><a href="#filesystems">Filesystems</a>
       <ul>
       <li><a href="#btrfs">BTRFS</a>
@@ -133,7 +138,11 @@
       <li><a href="#html-templates">HTML Templates</a></li>
       </ul></li>
       <li><a href="#wget">Wget</a></li>
-      <li><a href="#apt-cacher-ng">Apt-Cacher-NG</a></li>
+      <li><a href="#apt-cacher-ng">Apt-Cacher-NG</a>
+      <ul>
+      <li><a href="#installation">Installation</a></li>
+      <li><a href="#use">Use</a></li>
+      </ul></li>
       </ul></li>
       <li><a href="#containers">Containers</a></li>
       <li><a href="#devices">Devices</a>
@@ -147,9 +156,46 @@
       </ul></li>
       <li><a href="#shell">Shell</a>
       <ul>
-      <li><a href="#detach-processes-from-shell">Detach processes from shell</a></li>
+      <li><a href="#detach-processes-from-shell">Detach processes from shell</a>
+      <ul>
+      <li><a href="#disown">disown</a></li>
+      <li><a href="#nohup">nohup</a></li>
+      </ul></li>
       </ul></li>
       </ul>
+      <h1 id="users-groups-and-modify">Users, Groups, and Modify</h1>
+      <h2 id="users-and-modify">Users and Modify</h2>
+      <p>To create a new user use the useradd command:</p>
+      <pre><code>useradd &lt;USERNAME&gt;</code></pre>
+      <p>And to modify the user use the usermod command:</p>
+      <pre><code>usermod &lt;MODIFY&gt; &lt;USER&gt;</code></pre>
+      <p>For example, to add a user to a group use the following command:</p>
+      <pre><code>usermod -a -G sudo,wheel &lt;USERNAME&gt;</code></pre>
+      <h2 id="new">New</h2>
+      <p>To create a homedirectory while creating the user add the -m option:</p>
+      <pre><code>useradd -m &lt;USERNAME&gt;</code></pre>
+      <p>To create a custom home directory use:</p>
+      <pre><code>useradd -m -d &lt;DIRECTORY&gt; &lt;USERNAME&gt;</code></pre>
+      <p>To create a new user and add to a primary group at creation use:</p>
+      <pre><code>useradd -g &lt;GROUP&gt; &lt;USERNAME&gt;</code></pre>
+      <p>A user may belong to many secondary groups. Seperate each group name with an apostrophe. To create a new user and add to a secondary group at creation use:</p>
+      <pre><code>useradd -G &lt;GROUP,GROUP&gt; &lt;USERNAME&gt;</code></pre>
+      <p>To create a new user using a specific shell use the -s option.</p>
+      <pre><code>useradd -s /bin/bash &lt;USERNAME&gt;</code></pre>
+      <p>To create a new user and add descriptive comment use the -c option:</p>
+      <pre><code>useradd -c &quot;COMMENT&quot; &lt;USERNAME&gt;</code></pre>
+      <p>To create a new user and add an expiration date to the account use:</p>
+      <pre><code>useradd -e &lt;DATE&gt; &lt;USERNAME&gt;</code></pre>
+      <p>Example:</p>
+      <pre><code>useradd -e 2021-01-01 user</code></pre>
+      <p>To create a system user use the -r option:</p>
+      <pre><code>useradd -r &lt;USERNAME&gt;</code></pre>
+      <p>To add a user to a specific group use the command:</p>
+      <pre><code>usermod -a -G &lt;GROUP&gt; &lt;USER&gt;</code></pre>
+      <p>To disable a specific user from being able to login use:</p>
+      <pre><code>usermod -s /sbin/nologin &lt;USER&gt;</code></pre>
+      <p>To force a user to change their password use:</p>
+      <pre><code>usermod -l &lt;USERNAME&gt;</code></pre>
       <h1 id="filesystems">Filesystems</h1>
       <h2 id="btrfs">BTRFS</h2>
       <h3 id="formatting">Formatting</h3>
@@ -280,6 +326,27 @@
       <pre><code>pandoc -s --template template.html input.md -o output.html</code></pre>
       <h2 id="wget">Wget</h2>
       <h2 id="apt-cacher-ng">Apt-Cacher-NG</h2>
+      <h3 id="installation">Installation</h3>
+      <p>To install run:</p>
+      <pre><code>sudo apt install apt-cacher-ng</code></pre>
+      <p>And then select No at the prompt.</p>
+      <p>Run the service with:</p>
+      <pre><code>sudo systemctl start apt-cacher-ng</code></pre>
+      <h3 id="use">Use</h3>
+      <p>For debian:</p>
+      <p>Change <code>/etc/apt/sources.list</code> file and include the following as an example:</p>
+      <pre><code>deb http://192.168.88.20:3142/ports.ubuntu.com/ubuntu-ports focal main restricted
+      deb http://192.168.88.20:3142/ports.ubuntu.com/ubuntu-ports focal-updates main restricted
+      deb http://192.168.88.20:3142/ports.ubuntu.com/ubuntu-ports focal universe
+      deb http://192.168.88.20:3142/ports.ubuntu.com/ubuntu-ports focal-updates universe
+      deb http://192.168.88.20:3142/ports.ubuntu.com/ubuntu-ports focal multiverse
+      deb http://192.168.88.20:3142/ports.ubuntu.com/ubuntu-ports focal-updates multiverse
+      deb http://192.168.88.20:3142/ports.ubuntu.com/ubuntu-ports focal-backports main restricted universe multiverse
+      deb http://192.168.88.20:3142/ports.ubuntu.com/ubuntu-ports focal-security main restricted
+      deb http://192.168.88.20:3142/ports.ubuntu.com/ubuntu-ports focal-security universe
+      deb http://192.168.88.20:3142/ports.ubuntu.com/ubuntu-ports focal-security multiverse</code></pre>
+      <p>For https:</p>
+      <pre><code>deb http://192.168.88.20:3142/HTTPS///get.docker.com/ubuntu docker main</code></pre>
       <h1 id="containers">Containers</h1>
       <h1 id="devices">Devices</h1>
       <h2 id="loop-devices">Loop Devices</h2>
@@ -301,6 +368,14 @@
       <p>–backup It is used in conjunction with the –backup-dir option, which specifies the directory where the backup files should be stored. rsync -a –delete –backup –backup-dir=/path/to/backups /path/to/source destination</p>
       <h1 id="shell">Shell</h1>
       <h2 id="detach-processes-from-shell">Detach processes from shell</h2>
+      <h3 id="disown">disown</h3>
+      <p>Disown will detach a process from the shell allowing you to exit the server and allow the process to continue running.</p>
+      <p>An example of use:</p>
+      <pre><code>rsync &lt;OPTION&gt; &lt;SOURCE&gt; &lt;DEST&gt;</code></pre>
+      <p>Once running suspend the process using ^Z. Then use the “bg” command to run in the process in the background. Afterwards use the command “disown” to detach the process from the active shell.</p>
+      <h3 id="nohup">nohup</h3>
+      <p>Nohup does the same as disown. For example:</p>
+      <pre><code>nohup apt upgrade </code></pre>
   </body>
 
 </html>

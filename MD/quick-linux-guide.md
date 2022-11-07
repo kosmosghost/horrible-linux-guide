@@ -2,6 +2,9 @@
 title: The Unofficial Linux Guide
 ---
 
+-   [Users, Groups, and Modify](#users-groups-and-modify)
+    -   [Users and Modify](#users-and-modify)
+    -   [New](#new)
 -   [Filesystems](#filesystems)
     -   [BTRFS](#btrfs)
         -   [Formatting](#formatting)
@@ -36,6 +39,8 @@ title: The Unofficial Linux Guide
         -   [HTML Templates](#html-templates)
     -   [Wget](#wget)
     -   [Apt-Cacher-NG](#apt-cacher-ng)
+        -   [Installation](#installation)
+        -   [Use](#use)
 -   [Containers](#containers)
 -   [Devices](#devices)
     -   [Loop Devices](#loop-devices)
@@ -44,6 +49,76 @@ title: The Unofficial Linux Guide
     -   [rsync](#rsync)
 -   [Shell](#shell)
     -   [Detach processes from shell](#detach-processes-from-shell)
+        -   [disown](#disown)
+        -   [nohup](#nohup)
+
+# Users, Groups, and Modify
+
+## Users and Modify
+
+To create a new user use the useradd command:
+
+    useradd <USERNAME>
+
+And to modify the user use the usermod command:
+
+    usermod <MODIFY> <USER>
+
+For example, to add a user to a group use the following command:
+
+    usermod -a -G sudo,wheel <USERNAME>
+
+## New
+
+To create a homedirectory while creating the user add the -m option:
+
+    useradd -m <USERNAME>
+
+To create a custom home directory use:
+
+    useradd -m -d <DIRECTORY> <USERNAME>
+
+To create a new user and add to a primary group at creation use:
+
+    useradd -g <GROUP> <USERNAME>
+
+A user may belong to many secondary groups. Seperate each group name
+with an apostrophe. To create a new user and add to a secondary group at
+creation use:
+
+    useradd -G <GROUP,GROUP> <USERNAME>
+
+To create a new user using a specific shell use the -s option.
+
+    useradd -s /bin/bash <USERNAME>
+
+To create a new user and add descriptive comment use the -c option:
+
+    useradd -c "COMMENT" <USERNAME>
+
+To create a new user and add an expiration date to the account use:
+
+    useradd -e <DATE> <USERNAME>
+
+Example:
+
+    useradd -e 2021-01-01 user
+
+To create a system user use the -r option:
+
+    useradd -r <USERNAME>
+
+To add a user to a specific group use the command:
+
+    usermod -a -G <GROUP> <USER>
+
+To disable a specific user from being able to login use:
+
+    usermod -s /sbin/nologin <USER>
+
+To force a user to change their password use:
+
+    usermod -l <USERNAME>
 
 # Filesystems
 
@@ -313,6 +388,40 @@ Then use the template with a markdown file to generate a html file.
 
 ## Apt-Cacher-NG
 
+### Installation
+
+To install run:
+
+    sudo apt install apt-cacher-ng
+
+And then select No at the prompt.
+
+Run the service with:
+
+    sudo systemctl start apt-cacher-ng
+
+### Use
+
+For debian:
+
+Change `/etc/apt/sources.list` file and include the following as an
+example:
+
+    deb http://192.168.88.20:3142/ports.ubuntu.com/ubuntu-ports focal main restricted
+    deb http://192.168.88.20:3142/ports.ubuntu.com/ubuntu-ports focal-updates main restricted
+    deb http://192.168.88.20:3142/ports.ubuntu.com/ubuntu-ports focal universe
+    deb http://192.168.88.20:3142/ports.ubuntu.com/ubuntu-ports focal-updates universe
+    deb http://192.168.88.20:3142/ports.ubuntu.com/ubuntu-ports focal multiverse
+    deb http://192.168.88.20:3142/ports.ubuntu.com/ubuntu-ports focal-updates multiverse
+    deb http://192.168.88.20:3142/ports.ubuntu.com/ubuntu-ports focal-backports main restricted universe multiverse
+    deb http://192.168.88.20:3142/ports.ubuntu.com/ubuntu-ports focal-security main restricted
+    deb http://192.168.88.20:3142/ports.ubuntu.com/ubuntu-ports focal-security universe
+    deb http://192.168.88.20:3142/ports.ubuntu.com/ubuntu-ports focal-security multiverse
+
+For https:
+
+    deb http://192.168.88.20:3142/HTTPS///get.docker.com/ubuntu docker main
+
 # Containers
 
 # Devices
@@ -359,3 +468,22 @@ destination
 # Shell
 
 ## Detach processes from shell
+
+### disown
+
+Disown will detach a process from the shell allowing you to exit the
+server and allow the process to continue running.
+
+An example of use:
+
+    rsync <OPTION> <SOURCE> <DEST>
+
+Once running suspend the process using \^Z. Then use the "bg" command to
+run in the process in the background. Afterwards use the command
+"disown" to detach the process from the active shell.
+
+### nohup
+
+Nohup does the same as disown. For example:
+
+    nohup apt upgrade 
