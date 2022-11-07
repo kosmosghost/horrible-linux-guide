@@ -92,7 +92,7 @@
       <li><a href="#users-groups-and-modify">Users, Groups, and Modify</a>
       <ul>
       <li><a href="#users-and-modify">Users and Modify</a></li>
-      <li><a href="#new">New</a></li>
+      <li><a href="#options">Options</a></li>
       </ul></li>
       <li><a href="#filesystems">Filesystems</a>
       <ul>
@@ -134,6 +134,16 @@
       <li><a href="#fedora">Fedora</a></li>
       <li><a href="#ubuntu">Ubuntu</a></li>
       </ul></li>
+      </ul></li>
+      <li><a href="#systemd">SystemD</a>
+      <ul>
+      <li><a href="#show-boot-time-in-seconds">Show boot time in seconds</a></li>
+      <li><a href="#view-a-list-of-running-services">View a list of running services:</a></li>
+      </ul></li>
+      <li><a href="#smartctl">Smartctl</a>
+      <ul>
+      <li><a href="#view-smart-data-by-using">View smart data by using:</a></li>
+      <li><a href="#run-smart-data-tests-by-using">Run smart data tests by using:</a></li>
       </ul></li>
       <li><a href="#tools">Tools</a>
       <ul>
@@ -180,7 +190,7 @@
       <pre><code>usermod &lt;MODIFY&gt; &lt;USER&gt;</code></pre>
       <p>For example, to add a user to a group use the following command:</p>
       <pre><code>usermod -a -G sudo,wheel &lt;USERNAME&gt;</code></pre>
-      <h2 id="new">New</h2>
+      <h2 id="options">Options</h2>
       <p>To create a homedirectory while creating the user add the -m option:</p>
       <pre><code>useradd -m &lt;USERNAME&gt;</code></pre>
       <p>To create a custom home directory use:</p>
@@ -341,6 +351,20 @@
       <pre><code>/etc/ssl/certs</code></pre>
       <p>And then run command:</p>
       <pre><code>update-ca-certificates</code></pre>
+      <h1 id="systemd">SystemD</h1>
+      <h2 id="show-boot-time-in-seconds">Show boot time in seconds</h2>
+      <pre><code>systemd-analyze</code></pre>
+      <h2 id="view-a-list-of-running-services">View a list of running services:</h2>
+      <pre><code>systemctl list-units --type=service --state=active</code></pre>
+      <h1 id="smartctl">Smartctl</h1>
+      <h2 id="view-smart-data-by-using">View smart data by using:</h2>
+      <pre><code>smartctl -a /dev/XXX</code></pre>
+      <p>Or for viewing smart data on a USB harddisk enclosure specify the device type:</p>
+      <pre><code>smartctl -a -d sat /dev/XXX</code></pre>
+      <h2 id="run-smart-data-tests-by-using">Run smart data tests by using:</h2>
+      <pre><code>smartctl -t &lt;short|long|conveyence&gt; /dev/XXX</code></pre>
+      <p>Then by using the following you can view whether or not the test has completed and any errors found:</p>
+      <pre><code>smartctl -l selftest /dev/XXX</code></pre>
       <h1 id="tools">Tools</h1>
       <h2 id="pandoc">Pandoc</h2>
       <h3 id="converting">Converting</h3>

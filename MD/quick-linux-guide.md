@@ -4,7 +4,7 @@ title: The Unofficial Linux Guide
 
 -   [Users, Groups, and Modify](#users-groups-and-modify)
     -   [Users and Modify](#users-and-modify)
-    -   [New](#new)
+    -   [Options](#options)
 -   [Filesystems](#filesystems)
     -   [BTRFS](#btrfs)
         -   [Formatting](#formatting)
@@ -36,6 +36,13 @@ title: The Unofficial Linux Guide
         certificate](#adding-a-self-signed-certificate)
         -   [Fedora](#fedora)
         -   [Ubuntu](#ubuntu)
+-   [SystemD](#systemd)
+    -   [Show boot time in seconds](#show-boot-time-in-seconds)
+    -   [View a list of running
+        services:](#view-a-list-of-running-services)
+-   [Smartctl](#smartctl)
+    -   [View smart data by using:](#view-smart-data-by-using)
+    -   [Run smart data tests by using:](#run-smart-data-tests-by-using)
 -   [Tools](#tools)
     -   [Pandoc](#pandoc)
         -   [Converting](#converting)
@@ -73,7 +80,7 @@ For example, to add a user to a group use the following command:
 
     usermod -a -G sudo,wheel <USERNAME>
 
-## New
+## Options
 
 To create a homedirectory while creating the user add the -m option:
 
@@ -418,6 +425,36 @@ Copy certificate, usually a .pem to:
 And then run command:
 
     update-ca-certificates
+
+# SystemD
+
+## Show boot time in seconds
+
+    systemd-analyze
+
+## View a list of running services:
+
+    systemctl list-units --type=service --state=active
+
+# Smartctl
+
+## View smart data by using:
+
+    smartctl -a /dev/XXX
+
+Or for viewing smart data on a USB harddisk enclosure specify the device
+type:
+
+    smartctl -a -d sat /dev/XXX
+
+## Run smart data tests by using:
+
+    smartctl -t <short|long|conveyence> /dev/XXX
+
+Then by using the following you can view whether or not the test has
+completed and any errors found:
+
+    smartctl -l selftest /dev/XXX
 
 # Tools
 
