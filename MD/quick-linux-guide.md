@@ -15,7 +15,21 @@ title: The Unofficial Linux Guide
         -   [Mount a ramdisk using RamFS](#mount-a-ramdisk-using-ramfs)
 -   [Security](#security)
     -   [Cryptsetup](#cryptsetup)
+        -   [Create a LUKS encrypted
+            volume](#create-a-luks-encrypted-volume)
+        -   [Open a LUKS encrypted
+            volume](#open-a-luks-encrypted-volume)
+        -   [Mount a LUKS encrypted
+            volume](#mount-a-luks-encrypted-volume)
+        -   [Close a LUKS encrypted
+            volume](#close-a-luks-encrypted-volume)
+        -   [Modify a LUKS encrypted
+            volume](#modify-a-luks-encrypted-volume)
     -   [CHMOD](#chmod)
+    -   [Adding a self-signed
+        certificate](#adding-a-self-signed-certificate)
+        -   [Fedora](#fedora)
+        -   [Ubuntu](#ubuntu)
 -   [Tools](#tools)
     -   [Pandoc](#pandoc)
         -   [Converting](#converting)
@@ -161,6 +175,61 @@ example:
 
 ## Cryptsetup
 
+### Create a LUKS encrypted volume
+
+To create a LUKS encrypted volume use the following syntax:
+
+    sudo cryptsetup luksFormat /dev/XXX --type luks2
+
+### Open a LUKS encrypted volume
+
+To open a LUKS encrypted volume:
+
+    sudo cryptsetup open /dev/XXX <NAME>
+
+Example:
+
+    sudo cryptsetup open /dev/XXX my_encrypted_volume
+
+### Mount a LUKS encrypted volume
+
+To mount a volume:
+
+    sudo mount /dev/mapper/<NAME> <TARGET>
+
+Example:
+
+    sudo mount /dev/mapper/my_encrypted_volume my_encrypted_folder
+
+You must make sure to format the volume before you mount it for the
+first time:
+
+    sudo mkfs.<TYPE> /dev/mapper/<NAME>
+
+Example:
+
+    sudo mkfs.btrfs /dev/mapper/my_encrypted_volume
+
+### Close a LUKS encrypted volume
+
+To close the encrypted volume use:
+
+    sudo cryptsetup close <NAME>
+
+### Modify a LUKS encrypted volume
+
+To show statistics and key slots of the encrypted volume use:
+
+    sudo cryptsetup dump /dev/XXX
+
+To remove a key from the volume:
+
+    sudo cryptsetup luksKillSlot /dev/XXX <KEY#>
+
+Example:
+
+    sudo cryptsetup luksKillSlot /dev/XXX 1
+
 ## CHMOD
 
 7 read, write and execute rwx 111
@@ -178,6 +247,28 @@ example:
 1 execute only --x 001
 
 0 none --- 000
+
+## Adding a self-signed certificate
+
+### Fedora
+
+Place the certificate in:
+
+    /etc/pki/ca-trust/source/anchors/
+
+And then run command:
+
+    sudo update-ca-trust
+
+### Ubuntu
+
+Copy certificate, usually a .pem to:
+
+    /etc/ssl/certs
+
+And then run command:
+
+    update-ca-certificates
 
 # Tools
 

@@ -107,8 +107,20 @@
 </ul></li>
 <li><a href="#security">Security</a>
 <ul>
-<li><a href="#cryptsetup">Cryptsetup</a></li>
+<li><a href="#cryptsetup">Cryptsetup</a>
+<ul>
+<li><a href="#create-a-luks-encrypted-volume">Create a LUKS encrypted volume</a></li>
+<li><a href="#open-a-luks-encrypted-volume">Open a LUKS encrypted volume</a></li>
+<li><a href="#mount-a-luks-encrypted-volume">Mount a LUKS encrypted volume</a></li>
+<li><a href="#close-a-luks-encrypted-volume">Close a LUKS encrypted volume</a></li>
+<li><a href="#modify-a-luks-encrypted-volume">Modify a LUKS encrypted volume</a></li>
+</ul></li>
 <li><a href="#chmod">CHMOD</a></li>
+<li><a href="#adding-a-self-signed-certificate">Adding a self-signed certificate</a>
+<ul>
+<li><a href="#fedora">Fedora</a></li>
+<li><a href="#ubuntu">Ubuntu</a></li>
+</ul></li>
 </ul></li>
 <li><a href="#tools">Tools</a>
 <ul>
@@ -197,6 +209,33 @@ sudo btrfs scrub status /</code></pre>
 <pre><code>mount -t ramfs -o size=1g ramfs /ramdisk</code></pre>
 <h1 id="security">Security</h1>
 <h2 id="cryptsetup">Cryptsetup</h2>
+<h3 id="create-a-luks-encrypted-volume">Create a LUKS encrypted volume</h3>
+<p>To create a LUKS encrypted volume use the following syntax:</p>
+<pre><code>sudo cryptsetup luksFormat /dev/XXX --type luks2</code></pre>
+<h3 id="open-a-luks-encrypted-volume">Open a LUKS encrypted volume</h3>
+<p>To open a LUKS encrypted volume:</p>
+<pre><code>sudo cryptsetup open /dev/XXX &lt;NAME&gt;</code></pre>
+<p>Example:</p>
+<pre><code>sudo cryptsetup open /dev/XXX my_encrypted_volume</code></pre>
+<h3 id="mount-a-luks-encrypted-volume">Mount a LUKS encrypted volume</h3>
+<p>To mount a volume:</p>
+<pre><code>sudo mount /dev/mapper/&lt;NAME&gt; &lt;TARGET&gt;</code></pre>
+<p>Example:</p>
+<pre><code>sudo mount /dev/mapper/my_encrypted_volume my_encrypted_folder</code></pre>
+<p>You must make sure to format the volume before you mount it for the first time:</p>
+<pre><code>sudo mkfs.&lt;TYPE&gt; /dev/mapper/&lt;NAME&gt;</code></pre>
+<p>Example:</p>
+<pre><code>sudo mkfs.btrfs /dev/mapper/my_encrypted_volume</code></pre>
+<h3 id="close-a-luks-encrypted-volume">Close a LUKS encrypted volume</h3>
+<p>To close the encrypted volume use:</p>
+<pre><code>sudo cryptsetup close &lt;NAME&gt;</code></pre>
+<h3 id="modify-a-luks-encrypted-volume">Modify a LUKS encrypted volume</h3>
+<p>To show statistics and key slots of the encrypted volume use:</p>
+<pre><code>sudo cryptsetup dump /dev/XXX</code></pre>
+<p>To remove a key from the volume:</p>
+<pre><code>sudo cryptsetup luksKillSlot /dev/XXX &lt;KEY#&gt;</code></pre>
+<p>Example:</p>
+<pre><code>sudo cryptsetup luksKillSlot /dev/XXX 1</code></pre>
 <h2 id="chmod">CHMOD</h2>
 <p>7 read, write and execute rwx 111</p>
 <p>6 read and write rw- 110</p>
@@ -206,6 +245,17 @@ sudo btrfs scrub status /</code></pre>
 <p>2 write only -w- 010</p>
 <p>1 execute only –x 001</p>
 <p>0 none — 000</p>
+<h2 id="adding-a-self-signed-certificate">Adding a self-signed certificate</h2>
+<h3 id="fedora">Fedora</h3>
+<p>Place the certificate in:</p>
+<pre><code>/etc/pki/ca-trust/source/anchors/</code></pre>
+<p>And then run command:</p>
+<pre><code>sudo update-ca-trust</code></pre>
+<h3 id="ubuntu">Ubuntu</h3>
+<p>Copy certificate, usually a .pem to:</p>
+<pre><code>/etc/ssl/certs</code></pre>
+<p>And then run command:</p>
+<pre><code>update-ca-certificates</code></pre>
 <h1 id="tools">Tools</h1>
 <h2 id="pandoc">Pandoc</h2>
 <h3 id="converting">Converting</h3>
