@@ -164,7 +164,11 @@
 <li><a href="#mounting-and-compression">Mounting and Compression</a></li>
 <li><a href="#scrub">Scrub</a></li>
 </ul></li>
-<li><a href="#ext4">EXT4</a></li>
+<li><a href="#ext4">EXT4</a>
+<ul>
+<li><a href="#defragment-1">Defragment</a></li>
+<li><a href="#filesystem-check">Filesystem check</a></li>
+</ul></li>
 </ul></li>
 <li><a href="#security">Security</a>
 <ul>
@@ -236,6 +240,14 @@
 <pre><code>sudo btrfs scrub start /</code></pre>
 <pre><code>sudo btrfs scrub status /</code></pre>
 <h2 id="ext4">EXT4</h2>
+<h3 id="defragment-1">Defragment</h3>
+<p>To defrag an EXT4 volume:</p>
+<pre><code>e4defrag $VOLUME</code></pre>
+<p>example:</p>
+<pre><code>e4defrag /</code></pre>
+<h3 id="filesystem-check">Filesystem check</h3>
+<p>To check ext4 integredy:</p>
+<pre><code>e2fsck $VOLUME</code></pre>
 <h1 id="security">Security</h1>
 <h2 id="cryptsetup">Cryptsetup</h2>
 <h2 id="chmod">CHMOD</h2>
