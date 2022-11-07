@@ -169,6 +169,10 @@
 <li><a href="#defragment-1">Defragment</a></li>
 <li><a href="#filesystem-check">Filesystem check</a></li>
 </ul></li>
+<li><a href="#ramfs">RAMFS</a>
+<ul>
+<li><a href="#mount-a-ramdisk-using-ramfs">Mount a ramdisk using RamFS</a></li>
+</ul></li>
 </ul></li>
 <li><a href="#security">Security</a>
 <ul>
@@ -201,20 +205,22 @@
 <h2 id="btrfs">BTRFS</h2>
 <h3 id="formatting">Formatting</h3>
 <p>In order to format the filesystem for a single partition simply using:</p>
-<pre><code>mkfs.btrfs /dev/($DISK)</code></pre>
+<pre><code>mkfs.btrfs /dev/XXX</code></pre>
 <p>When using raid you must specify:</p>
-<pre><code>mkfs.btrfs -m ($RAID) -d ($RAID) /dev/($DISK) /dev/($DISK)</code></pre>
+<pre><code>mkfs.btrfs -m &lt;RAID-TYPE&gt; -d &lt;RAID-TYPE&gt; /dev/XXX /dev/XXX</code></pre>
 <p>-m: specify how the metadata will be stored.</p>
 <p>-d: specify how the data will be stored.</p>
 <p>For example: If you want to create a two disk set in raid1, do the following:</p>
 <pre><code>mkfs.btrfs -m raid1 -d raid1 /dev/sda /dev/sdb</code></pre>
 <h3 id="defragment">Defragment</h3>
 <p>To defragment your volumes you can:</p>
-<pre><code>sudo btrfs fi defragment ($OPTIONS) ($TARGET)</code></pre>
+<pre><code>sudo btrfs fi defragment &lt;OPTIONS&gt; &lt;TARGET&gt;</code></pre>
 <p>This will defragment all files in the root. Example:</p>
 <pre><code>sudo btrfs filesystem defragment /</code></pre>
 <p>You can use the defragment command to compress all the uncompressed files on the volume.</p>
-<pre><code>sudo btrfs fi defragment -rfc($COMPRESSION_TYPE) &amp;(TARGET)</code></pre>
+<pre><code>sudo btrfs fi defragment -rfc&lt;COMPRESSION_TYPE&gt; &lt;TARGET&gt;</code></pre>
+<p>where:</p>
+<p>-r will recursively defragment files. -f will force -c compression type</p>
 <p>An example for defragmenting and compressing the root:</p>
 <pre><code>sudo btrfs fi defragment -rfclzo /</code></pre>
 <h3 id="mounting-and-compression">Mounting and Compression</h3>
@@ -224,30 +230,36 @@
 <p>LZO – faster compression and decompression than zlib, worse compression ratio, designed to be fast</p>
 <p>ZSTD – (since v4.14) compression comparable to zlib with higher compression/decompression speeds and different ratio levels (details) Level from 1 - 15.</p>
 <p>To mount a btrfs filesystem with compression use:</p>
-<pre><code>sudo mount /dev/($DISK) ($MOUNTFOLDER) -o compress=($TYPE)</code></pre>
+<pre><code>sudo mount /dev/XXX &lt;TARGET&gt; -o compress=($TYPE)</code></pre>
 <p>To force compression use:</p>
-<pre><code>sudo mount /dev/($DISK) ($MOUNTFOLDER) -o compress-force=($TYPE)</code></pre>
+<pre><code>sudo mount /dev/XXX &lt;TARGET&gt; -o compress-force=($TYPE)</code></pre>
 <p>Example:</p>
 <pre><code>sudo mount /dev/sda mountfolder -compress=zstd:10</code></pre>
 <p>Using compression with fstab:</p>
-<pre><code>($UUID) ($MOUNTPOINT) btrfs default,auto,compress=($TYPE) 0 0</code></pre>
+<pre><code>&lt;UUID&gt; &lt;MOUNT_POINT&gt; btrfs default,auto,compress=($TYPE) 0 0</code></pre>
 <h3 id="scrub">Scrub</h3>
 <p>Running scrub will check the filesystem for errors and can be ran with:</p>
-<pre><code>sudo btrfs scrub start ($TARGET)</code></pre>
+<pre><code>sudo btrfs scrub start &lt;TARGET&gt;</code></pre>
 <p>To check the status of a scrub run:</p>
-<pre><code>sudo btrfs scrub status ($TARGET)</code></pre>
+<pre><code>sudo btrfs scrub status &lt;TARGET&gt;</code></pre>
 <p>Examples:</p>
 <pre><code>sudo btrfs scrub start /</code></pre>
 <pre><code>sudo btrfs scrub status /</code></pre>
 <h2 id="ext4">EXT4</h2>
 <h3 id="defragment-1">Defragment</h3>
 <p>To defrag an EXT4 volume:</p>
-<pre><code>e4defrag $VOLUME</code></pre>
+<pre><code>e4defrag &lt;TARGET&gt;</code></pre>
 <p>example:</p>
 <pre><code>e4defrag /</code></pre>
 <h3 id="filesystem-check">Filesystem check</h3>
 <p>To check ext4 integredy:</p>
-<pre><code>e2fsck $VOLUME</code></pre>
+<pre><code>e2fsck &lt;TARGET&gt;</code></pre>
+<h2 id="ramfs">RAMFS</h2>
+<h3 id="mount-a-ramdisk-using-ramfs">Mount a ramdisk using RamFS</h3>
+<p>RamFS You can use RamFS to create a ramdisk on your computer using the mount command:</p>
+<pre><code>mount -t ramfs -o size=&lt;SIZE&gt; ramfs &lt;PATH&gt;</code></pre>
+<p>example:</p>
+<pre><code>mount -t ramfs -o size=1g ramfs /ramdisk</code></pre>
 <h1 id="security">Security</h1>
 <h2 id="cryptsetup">Cryptsetup</h2>
 <h2 id="chmod">CHMOD</h2>
