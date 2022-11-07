@@ -338,6 +338,66 @@ sudo btrfs scrub status /</code></pre>
 <p>2 write only -w- 010</p>
 <p>1 execute only –x 001</p>
 <p>0 none — 000</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Num</th>
+<th style="text-align: left;">Permissions</th>
+<th style="text-align: left;">Abbr.</th>
+<th style="text-align: left;">Binary</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">7</td>
+<td style="text-align: left;">read, write and execute</td>
+<td style="text-align: left;">rwx</td>
+<td style="text-align: left;">111</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">6</td>
+<td style="text-align: left;">read and write</td>
+<td style="text-align: left;">rw-</td>
+<td style="text-align: left;">110</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">5</td>
+<td style="text-align: left;">read and execute</td>
+<td style="text-align: left;">r-x</td>
+<td style="text-align: left;">101</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">4</td>
+<td style="text-align: left;">read only</td>
+<td style="text-align: left;">r–</td>
+<td style="text-align: left;">100</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">3</td>
+<td style="text-align: left;">write and execute</td>
+<td style="text-align: left;">-wx</td>
+<td style="text-align: left;">011</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2</td>
+<td style="text-align: left;">write only</td>
+<td style="text-align: left;">-w-</td>
+<td style="text-align: left;">010</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">execute only</td>
+<td style="text-align: left;">–x</td>
+<td style="text-align: left;">001</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">none</td>
+<td style="text-align: left;">—</td>
+<td style="text-align: left;">000</td>
+</tr>
+</tbody>
+</table>
 <h2 id="adding-a-self-signed-certificate">Adding a self-signed certificate</h2>
 <h3 id="fedora">Fedora</h3>
 <p>Place the certificate in:</p>
