@@ -299,6 +299,7 @@ sudo btrfs scrub status /</code></pre>
 <p>nodiratime - do not update directory inode access times on the filesystem. Can help performance. You do not need to enable this flag if you have already enabled noatime.</p>
 <p>relatime - update inode access times relative to modify or change time. Access time is only updated if the previous access time was earlier than the current modify or change time (similar to noatime, but doesn’t break mutt or other applications that need to know if a file has been read since the last time it was modified). Can help performance.</p>
 <h2 id="bind">Bind</h2>
+<pre><code>&lt;SOURCE&gt; &lt;DESTINATION&gt;        none    bind</code></pre>
 <h1 id="security">Security</h1>
 <h2 id="cryptsetup">Cryptsetup</h2>
 <h3 id="create-a-luks-encrypted-volume">Create a LUKS encrypted volume</h3>

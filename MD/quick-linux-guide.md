@@ -327,6 +327,8 @@ since the last time it was modified). Can help performance.
 
 ## Bind
 
+    <SOURCE> <DESTINATION>        none    bind
+
 # Security
 
 ## Cryptsetup
