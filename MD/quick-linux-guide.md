@@ -16,6 +16,9 @@ title: The Unofficial Linux Guide
         -   [Filesystem check](#filesystem-check)
     -   [RAMFS](#ramfs)
         -   [Mount a ramdisk using RamFS](#mount-a-ramdisk-using-ramfs)
+-   [FSTAB](#fstab)
+    -   [Mount](#mount)
+    -   [Bind](#bind)
 -   [Security](#security)
     -   [Cryptsetup](#cryptsetup)
         -   [Create a LUKS encrypted
@@ -44,6 +47,8 @@ title: The Unofficial Linux Guide
 -   [Containers](#containers)
 -   [Devices](#devices)
     -   [Loop Devices](#loop-devices)
+        -   [Create a loop device](#create-a-loop-device)
+        -   [Partition a loop device](#partition-a-loop-device)
 -   [File Manipulation](#file-manipulation)
     -   [find](#find)
     -   [rsync](#rsync)
@@ -246,6 +251,75 @@ example:
 
     mount -t ramfs -o size=1g ramfs /ramdisk
 
+# FSTAB
+
+## Mount
+
+    <UUID> <TARGET> <TYPE> <OPTION> <FIELD> <FIELD>
+
+Example:
+
+    UUID=acab18c0-db67-4a61-852e-76238cf61db6 /mountpoint btrfs defaults 0 0
+
+You can get the UUID with the `blkid` command;
+
+FIRST 0 = Filesystem dump. Typically 0.
+
+second 0 - Filesystem check order upon boot. 0 for no check, 1 for root
+directory, and 2 for check.
+
+Options:
+
+auto - file system will mount automatically at boot, or when the command
+'mount -a' is issued.
+
+noauto - the filesystem is mounted only when you tell it to.
+
+exec - allow the execution binaries that are on that partition
+(default).
+
+noexec - do not allow binaries to be executed on the filesystem.
+
+ro - mount the filesystem read only.
+
+rw - mount the filesystem read-write.
+
+sync - I/O should be done synchronously.
+
+async - I/O should be done asynchronously.
+
+flush - specific option for FAT to flush data more often, thus making
+copy dialogs or progress bars to stays up until things are on the disk.
+
+user - permit any user to mount the filesystem (implies
+noexec,nosuid,nodev unless overridden).
+
+nouser - only allow root to mount the filesystem (default).
+
+defaults - default mount settings (equivalent to
+rw,suid,dev,exec,auto,nouser,async).
+
+suid - allow the operation of suid, and sgid bits. They are mostly used
+to allow users on a computer system to execute binary executables with
+temporarily elevated privileges in order to perform a specific task.
+
+nosuid - block the operation of suid, and sgid bits.
+
+noatime - do not update inode access times on the filesystem. Can help
+performance.
+
+nodiratime - do not update directory inode access times on the
+filesystem. Can help performance. You do not need to enable this flag if
+you have already enabled noatime.
+
+relatime - update inode access times relative to modify or change time.
+Access time is only updated if the previous access time was earlier than
+the current modify or change time (similar to noatime, but doesn't break
+mutt or other applications that need to know if a file has been read
+since the last time it was modified). Can help performance.
+
+## Bind
+
 # Security
 
 ## Cryptsetup
@@ -427,6 +501,24 @@ For https:
 # Devices
 
 ## Loop Devices
+
+### Create a loop device
+
+To create a loop device you must first create a file. As an example the
+following command will create a zeroed file with 100MB capacity.
+
+    dd if=/dev/zero of=$FILENAME bs=1M count=100 status=progress; sync
+
+Then create the loop device using the folowing:
+
+    losetup -fP $FILENAME
+
+### Partition a loop device
+
+You can partition or modify the device using the fdisk utility. It is as
+simple as with any other device:
+
+    fdisk /dev/loop0
 
 # File Manipulation
 

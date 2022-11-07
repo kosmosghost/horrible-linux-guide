@@ -110,6 +110,11 @@
 <li><a href="#mount-a-ramdisk-using-ramfs">Mount a ramdisk using RamFS</a></li>
 </ul></li>
 </ul></li>
+<li><a href="#fstab">FSTAB</a>
+<ul>
+<li><a href="#mount">Mount</a></li>
+<li><a href="#bind">Bind</a></li>
+</ul></li>
 <li><a href="#security">Security</a>
 <ul>
 <li><a href="#cryptsetup">Cryptsetup</a>
@@ -144,7 +149,11 @@
 <li><a href="#containers">Containers</a></li>
 <li><a href="#devices">Devices</a>
 <ul>
-<li><a href="#loop-devices">Loop Devices</a></li>
+<li><a href="#loop-devices">Loop Devices</a>
+<ul>
+<li><a href="#create-a-loop-device">Create a loop device</a></li>
+<li><a href="#partition-a-loop-device">Partition a loop device</a></li>
+</ul></li>
 </ul></li>
 <li><a href="#file-manipulation">File Manipulation</a>
 <ul>
@@ -253,6 +262,33 @@ sudo btrfs scrub status /</code></pre>
 <pre><code>mount -t ramfs -o size=&lt;SIZE&gt; ramfs &lt;PATH&gt;</code></pre>
 <p>example:</p>
 <pre><code>mount -t ramfs -o size=1g ramfs /ramdisk</code></pre>
+<h1 id="fstab">FSTAB</h1>
+<h2 id="mount">Mount</h2>
+<pre><code>&lt;UUID&gt; &lt;TARGET&gt; &lt;TYPE&gt; &lt;OPTION&gt; &lt;FIELD&gt; &lt;FIELD&gt;</code></pre>
+<p>Example:</p>
+<pre><code>UUID=acab18c0-db67-4a61-852e-76238cf61db6 /mountpoint btrfs defaults 0 0</code></pre>
+<p>You can get the UUID with the <code>blkid</code> command;</p>
+<p>FIRST 0 = Filesystem dump. Typically 0.</p>
+<p>second 0 - Filesystem check order upon boot. 0 for no check, 1 for root directory, and 2 for check.</p>
+<p>Options:</p>
+<p>auto - file system will mount automatically at boot, or when the command ‘mount -a’ is issued.</p>
+<p>noauto - the filesystem is mounted only when you tell it to.</p>
+<p>exec - allow the execution binaries that are on that partition (default).</p>
+<p>noexec - do not allow binaries to be executed on the filesystem.</p>
+<p>ro - mount the filesystem read only.</p>
+<p>rw - mount the filesystem read-write.</p>
+<p>sync - I/O should be done synchronously.</p>
+<p>async - I/O should be done asynchronously.</p>
+<p>flush - specific option for FAT to flush data more often, thus making copy dialogs or progress bars to stays up until things are on the disk.</p>
+<p>user - permit any user to mount the filesystem (implies noexec,nosuid,nodev unless overridden).</p>
+<p>nouser - only allow root to mount the filesystem (default).</p>
+<p>defaults - default mount settings (equivalent to rw,suid,dev,exec,auto,nouser,async).</p>
+<p>suid - allow the operation of suid, and sgid bits. They are mostly used to allow users on a computer system to execute binary executables with temporarily elevated privileges in order to perform a specific task.</p>
+<p>nosuid - block the operation of suid, and sgid bits.</p>
+<p>noatime - do not update inode access times on the filesystem. Can help performance.</p>
+<p>nodiratime - do not update directory inode access times on the filesystem. Can help performance. You do not need to enable this flag if you have already enabled noatime.</p>
+<p>relatime - update inode access times relative to modify or change time. Access time is only updated if the previous access time was earlier than the current modify or change time (similar to noatime, but doesn’t break mutt or other applications that need to know if a file has been read since the last time it was modified). Can help performance.</p>
+<h2 id="bind">Bind</h2>
 <h1 id="security">Security</h1>
 <h2 id="cryptsetup">Cryptsetup</h2>
 <h3 id="create-a-luks-encrypted-volume">Create a LUKS encrypted volume</h3>
@@ -347,6 +383,14 @@ deb http://192.168.88.20:3142/ports.ubuntu.com/ubuntu-ports focal-security multi
 <h1 id="containers">Containers</h1>
 <h1 id="devices">Devices</h1>
 <h2 id="loop-devices">Loop Devices</h2>
+<h3 id="create-a-loop-device">Create a loop device</h3>
+<p>To create a loop device you must first create a file. As an example the following command will create a zeroed file with 100MB capacity.</p>
+<pre><code>dd if=/dev/zero of=$FILENAME bs=1M count=100 status=progress; sync</code></pre>
+<p>Then create the loop device using the folowing:</p>
+<pre><code>losetup -fP $FILENAME</code></pre>
+<h3 id="partition-a-loop-device">Partition a loop device</h3>
+<p>You can partition or modify the device using the fdisk utility. It is as simple as with any other device:</p>
+<pre><code>fdisk /dev/loop0</code></pre>
 <h1 id="file-manipulation">File Manipulation</h1>
 <h2 id="find">find</h2>
 <h2 id="rsync">rsync</h2>
