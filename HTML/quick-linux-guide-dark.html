@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="" >
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+          <title>The Unofficial Linux Guide</title>
+  <style type="text/css">
+    html {
+      background-color: rgb(24, 26, 28);
+      color: rgb(194, 196, 198);
+      margin-left: 15%;
+      margin-right: 15%;
+      line-height: 1.5;
+      font-family: Georgia, serif;
+      font-size: 20px;
+    }
+
+    a {
+      color: rgb(194, 196, 198);
+    }
+
+    a:visited {
+      color: rgb(194, 196, 198);
+    }
+
+    li {
+      list-style: none;
+    }
+
+    a:not(:hover) {
+      text-decoration: none;
+    }
+
+    code {
+      font-family: Menlo, Monaco, 'Lucida Console', Consolas, monospace;
+      font-size: 85%;
+      margin: 0;
+      white-space: pre-wrap;
+    }
+    h1 {
+      text-align: center;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    @media (max-width: 600px) {
+      html {
+        margin-left: 0%;
+        margin-right: 0%;
+      }
+      body {
+        font-size: 0.9em;
+      }
+    }
+    @media print {
+      body {
+        background-color: rgb(24, 26, 28);
+        color: rgb(194, 196, 198);
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+      ul li {
+       padding: 0;
+      } 
+    }
+  </style>
+      <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+  </head>
+
+<body>
+      <header id="title-block-header">
+    <h1 class="title">The Unofficial Linux Guide</h1>
+              </header>
+      <ul>
+      <li><a href="#filesystems">Filesystems</a>
+      <ul>
+      <li><a href="#btrfs">BTRFS</a>
+      <ul>
+      <li><a href="#formatting">Formatting</a></li>
+      <li><a href="#defragment">Defragment</a></li>
+      <li><a href="#mounting-and-compression">Mounting and Compression</a></li>
+      <li><a href="#scrub">Scrub</a></li>
+      </ul></li>
+      <li><a href="#ext4">EXT4</a>
+      <ul>
+      <li><a href="#defragment-1">Defragment</a></li>
+      <li><a href="#filesystem-check">Filesystem check</a></li>
+      </ul></li>
+      <li><a href="#ramfs">RAMFS</a>
+      <ul>
+      <li><a href="#mount-a-ramdisk-using-ramfs">Mount a ramdisk using RamFS</a></li>
+      </ul></li>
+      </ul></li>
+      <li><a href="#security">Security</a>
+      <ul>
+      <li><a href="#cryptsetup">Cryptsetup</a></li>
+      <li><a href="#chmod">CHMOD</a></li>
+      </ul></li>
+      <li><a href="#tools">Tools</a>
+      <ul>
+      <li><a href="#pandoc">Pandoc</a></li>
+      <li><a href="#wget">Wget</a></li>
+      <li><a href="#apt-cacher-ng">Apt-Cacher-NG</a></li>
+      </ul></li>
+      <li><a href="#containers">Containers</a></li>
+      <li><a href="#devices">Devices</a>
+      <ul>
+      <li><a href="#loop-devices">Loop Devices</a></li>
+      </ul></li>
+      <li><a href="#file-manipulation">File Manipulation</a>
+      <ul>
+      <li><a href="#find">find</a></li>
+      <li><a href="#rsync">rsync</a>
+      <ul>
+      <li><a href="#new">New</a></li>
+      </ul></li>
+      </ul></li>
+      <li><a href="#shell">Shell</a>
+      <ul>
+      <li><a href="#detach-processes-from-shell">Detach processes from shell</a></li>
+      </ul></li>
+      </ul>
+      <h1 id="filesystems">Filesystems</h1>
+      <h2 id="btrfs">BTRFS</h2>
+      <h3 id="formatting">Formatting</h3>
+      <p>In order to format the filesystem for a single partition simply using:</p>
+      <pre><code>mkfs.btrfs /dev/XXX</code></pre>
+      <p>When using raid you must specify:</p>
+      <pre><code>mkfs.btrfs -m &lt;RAID-TYPE&gt; -d &lt;RAID-TYPE&gt; /dev/XXX /dev/XXX</code></pre>
+      <p>-m: specify how the metadata will be stored.</p>
+      <p>-d: specify how the data will be stored.</p>
+      <p>For example: If you want to create a two disk set in raid1, do the following:</p>
+      <pre><code>mkfs.btrfs -m raid1 -d raid1 /dev/sda /dev/sdb</code></pre>
+      <h3 id="defragment">Defragment</h3>
+      <p>To defragment your volumes you can:</p>
+      <pre><code>sudo btrfs fi defragment &lt;OPTIONS&gt; &lt;TARGET&gt;</code></pre>
+      <p>This will defragment all files in the root. Example:</p>
+      <pre><code>sudo btrfs filesystem defragment /</code></pre>
+      <p>You can use the defragment command to compress all the uncompressed files on the volume.</p>
+      <pre><code>sudo btrfs fi defragment -rfc&lt;COMPRESSION_TYPE&gt; &lt;TARGET&gt;</code></pre>
+      <p>where:</p>
+      <p>-r will recursively defragment files. -f will force -c compression type</p>
+      <p>An example for defragmenting and compressing the root:</p>
+      <pre><code>sudo btrfs fi defragment -rfclzo /</code></pre>
+      <h3 id="mounting-and-compression">Mounting and Compression</h3>
+      <p>Compression:</p>
+      <p>btrfs uses multiple compression methods.</p>
+      <p>ZLIB – slower, higher compression ratio (uses zlib level 3 setting, you can see the zlib level difference between 1 and 6 in zlib sources). Level from 1-9.</p>
+      <p>LZO – faster compression and decompression than zlib, worse compression ratio, designed to be fast</p>
+      <p>ZSTD – (since v4.14) compression comparable to zlib with higher compression/decompression speeds and different ratio levels (details) Level from 1 - 15.</p>
+      <p>To mount a btrfs filesystem with compression use:</p>
+      <pre><code>sudo mount /dev/XXX &lt;TARGET&gt; -o compress=($TYPE)</code></pre>
+      <p>To force compression use:</p>
+      <pre><code>sudo mount /dev/XXX &lt;TARGET&gt; -o compress-force=($TYPE)</code></pre>
+      <p>Example:</p>
+      <pre><code>sudo mount /dev/sda mountfolder -compress=zstd:10</code></pre>
+      <p>Using compression with fstab:</p>
+      <pre><code>&lt;UUID&gt; &lt;MOUNT_POINT&gt; btrfs default,auto,compress=($TYPE) 0 0</code></pre>
+      <h3 id="scrub">Scrub</h3>
+      <p>Running scrub will check the filesystem for errors and can be ran with:</p>
+      <pre><code>sudo btrfs scrub start &lt;TARGET&gt;</code></pre>
+      <p>To check the status of a scrub run:</p>
+      <pre><code>sudo btrfs scrub status &lt;TARGET&gt;</code></pre>
+      <p>Examples:</p>
+      <pre><code>sudo btrfs scrub start /
+
+      sudo btrfs scrub status /</code></pre>
+      <h2 id="ext4">EXT4</h2>
+      <h3 id="defragment-1">Defragment</h3>
+      <p>To defrag an EXT4 volume:</p>
+      <pre><code>e4defrag &lt;TARGET&gt;</code></pre>
+      <p>example:</p>
+      <pre><code>e4defrag /</code></pre>
+      <h3 id="filesystem-check">Filesystem check</h3>
+      <p>To check ext4 integredy:</p>
+      <pre><code>e2fsck &lt;TARGET&gt;</code></pre>
+      <h2 id="ramfs">RAMFS</h2>
+      <h3 id="mount-a-ramdisk-using-ramfs">Mount a ramdisk using RamFS</h3>
+      <p>RamFS You can use RamFS to create a ramdisk on your computer using the mount command:</p>
+      <pre><code>mount -t ramfs -o size=&lt;SIZE&gt; ramfs &lt;PATH&gt;</code></pre>
+      <p>example:</p>
+      <pre><code>mount -t ramfs -o size=1g ramfs /ramdisk</code></pre>
+      <h1 id="security">Security</h1>
+      <h2 id="cryptsetup">Cryptsetup</h2>
+      <h2 id="chmod">CHMOD</h2>
+      <p>7 read, write and execute rwx 111</p>
+      <p>6 read and write rw- 110</p>
+      <p>5 read and execute r-x 101</p>
+      <p>4 read only r– 100</p>
+      <p>3 write and execute -wx 011</p>
+      <p>2 write only -w- 010</p>
+      <p>1 execute only –x 001</p>
+      <p>0 none — 000</p>
+      <h1 id="tools">Tools</h1>
+      <h2 id="pandoc">Pandoc</h2>
+      <h2 id="wget">Wget</h2>
+      <h2 id="apt-cacher-ng">Apt-Cacher-NG</h2>
+      <h1 id="containers">Containers</h1>
+      <h1 id="devices">Devices</h1>
+      <h2 id="loop-devices">Loop Devices</h2>
+      <h1 id="file-manipulation">File Manipulation</h1>
+      <h2 id="find">find</h2>
+      <h2 id="rsync">rsync</h2>
+      <h3 id="new">New</h3>
+      <p>Important:</p>
+      <pre><code>rsync dir1/ dir2</code></pre>
+      <p>This copies the files inside dir1 without creating a new dir1 directory in dir2.</p>
+      <pre><code>rysnc dir1 dir2/</code></pre>
+      <p>This copies the entire directory and places it into dir2/</p>
+      <p>Arguments:</p>
+      <p>-a Copies everything including symbolic links</p>
+      <p>-n Dry run for testing</p>
+      <p>-v Verbose</p>
+      <p>-z compresses files for network transfer. Allows faster network speeds.</p>
+      <p>-P stands for progress and partial. It only transfers changed files.</p>
+      <p>–delete This will sync any files that have been deleted from dir1 and will delete them on dir2 as well.</p>
+      <p>–backup It is used in conjunction with the –backup-dir option, which specifies the directory where the backup files should be stored. rsync -a –delete –backup –backup-dir=/path/to/backups /path/to/source destination</p>
+      <h1 id="shell">Shell</h1>
+      <h2 id="detach-processes-from-shell">Detach processes from shell</h2>
+  </body>
+
+</html>
