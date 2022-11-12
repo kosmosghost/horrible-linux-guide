@@ -1,5 +1,5 @@
 ---
-title: The Unofficial Linux Guide
+title: The Horrible Linux Guide
 ---
 
 -   [Users, Groups, and Modify](#users-groups-and-modify)
