@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <title>The Horrible Linux Guide</title>
+  <title>horrible-linux-guide</title>
   <style type="text/css">
     html {
       background-color: transparent;
@@ -82,9 +82,7 @@
   <![endif]-->
 </head>
 <body>
-<header id="title-block-header">
-<h1 class="title">The Horrible Linux Guide</h1>
-</header>
+<nav id="TOC" role="doc-toc">
 <ul>
 <li><a href="#users-groups-and-modify">Users, Groups, and Modify</a>
 <ul>
@@ -130,6 +128,7 @@
 <ul>
 <li><a href="#fedora">Fedora</a></li>
 <li><a href="#ubuntu">Ubuntu</a></li>
+<li><a href="#alpine-linux">Alpine Linux</a></li>
 </ul></li>
 </ul></li>
 <li><a href="#systemd">SystemD</a>
@@ -179,6 +178,7 @@
 </ul></li>
 </ul></li>
 </ul>
+</nav>
 <h1 id="users-groups-and-modify">Users, Groups, and Modify</h1>
 <h2 id="users-and-modify">Users and Modify</h2>
 <p>To create a new user use the useradd command:</p>
@@ -186,7 +186,8 @@
 <p>And to modify the user use the usermod command:</p>
 <pre><code>usermod &lt;MODIFY&gt; &lt;USER&gt;</code></pre>
 <p>For example, to add a user to a group use the following command:</p>
-<pre><code>usermod -a -G sudo,wheel &lt;USERNAME&gt;</code></pre>
+<pre><code>usermod -a -G sudo,wheel &lt;USERNAME&gt;
+</code></pre>
 <h2 id="options">Options</h2>
 <p>To create a homedirectory while creating the user add the -m option:</p>
 <pre><code>useradd -m &lt;USERNAME&gt;</code></pre>
@@ -254,9 +255,8 @@
 <p>To check the status of a scrub run:</p>
 <pre><code>sudo btrfs scrub status &lt;TARGET&gt;</code></pre>
 <p>Examples:</p>
-<pre><code>sudo btrfs scrub start /
-
-sudo btrfs scrub status /</code></pre>
+<pre><code>sudo btrfs scrub start /</code></pre>
+<pre><code>sudo btrfs scrub status /</code></pre>
 <h2 id="ext4">EXT4</h2>
 <h3 id="defragment-1">Defragment</h3>
 <p>To defrag an EXT4 volume:</p>
@@ -341,60 +341,60 @@ sudo btrfs scrub status /</code></pre>
 <table>
 <thead>
 <tr class="header">
-<th style="text-align: left;">Num</th>
-<th style="text-align: left;">Permissions</th>
-<th style="text-align: left;">Abbr.</th>
-<th style="text-align: left;">Binary</th>
+<th>Num</th>
+<th>Permissions</th>
+<th>Abbr.</th>
+<th>Binary</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;">7</td>
-<td style="text-align: left;">read, write and execute</td>
-<td style="text-align: left;">rwx</td>
-<td style="text-align: left;">111</td>
+<td>7</td>
+<td>read, write and execute</td>
+<td>rwx</td>
+<td>111</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">6</td>
-<td style="text-align: left;">read and write</td>
-<td style="text-align: left;">rw-</td>
-<td style="text-align: left;">110</td>
+<td>6</td>
+<td>read and write</td>
+<td>rw-</td>
+<td>110</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">5</td>
-<td style="text-align: left;">read and execute</td>
-<td style="text-align: left;">r-x</td>
-<td style="text-align: left;">101</td>
+<td>5</td>
+<td>read and execute</td>
+<td>r-x</td>
+<td>101</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">4</td>
-<td style="text-align: left;">read only</td>
-<td style="text-align: left;">r–</td>
-<td style="text-align: left;">100</td>
+<td>4</td>
+<td>read only</td>
+<td>r–</td>
+<td>100</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">3</td>
-<td style="text-align: left;">write and execute</td>
-<td style="text-align: left;">-wx</td>
-<td style="text-align: left;">011</td>
+<td>3</td>
+<td>write and execute</td>
+<td>-wx</td>
+<td>011</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">2</td>
-<td style="text-align: left;">write only</td>
-<td style="text-align: left;">-w-</td>
-<td style="text-align: left;">010</td>
+<td>2</td>
+<td>write only</td>
+<td>-w-</td>
+<td>010</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">1</td>
-<td style="text-align: left;">execute only</td>
-<td style="text-align: left;">–x</td>
-<td style="text-align: left;">001</td>
+<td>1</td>
+<td>execute only</td>
+<td>–x</td>
+<td>001</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">0</td>
-<td style="text-align: left;">none</td>
-<td style="text-align: left;">—</td>
-<td style="text-align: left;">000</td>
+<td>0</td>
+<td>none</td>
+<td>—</td>
+<td>000</td>
 </tr>
 </tbody>
 </table>
@@ -409,6 +409,11 @@ sudo btrfs scrub status /</code></pre>
 <pre><code>/etc/ssl/certs</code></pre>
 <p>And then run command:</p>
 <pre><code>update-ca-certificates</code></pre>
+<h3 id="alpine-linux">Alpine Linux</h3>
+<p>Copy certificate, usually a .pem to:</p>
+<pre><code>/usr/local/share/certs</code></pre>
+<p>And then run command:</p>
+<pre><code>sudo update-ca-certificates</code></pre>
 <h1 id="systemd">SystemD</h1>
 <h2 id="show-boot-time-in-seconds">Show boot time in seconds</h2>
 <pre><code>systemd-analyze</code></pre>
@@ -433,7 +438,8 @@ sudo btrfs scrub status /</code></pre>
 <p>Example:</p>
 <pre><code>pandoc -s -r html https://en.wikipedia.org/wiki/Pandoc -o pandoc.txt</code></pre>
 <p>Adding in <code>-t gfm-raw_html</code> can clean up the text file making it easier to read. Example:</p>
-<pre><code>pandoc -s -t gfm-raw_html -r html https://en.wikipedia.org/wiki/Pandoc -o pandoc.txt</code></pre>
+<pre><code>pandoc -s -t gfm-raw_html -r html https://en.wikipedia.org/wiki/Pandoc -o pandoc.txt
+</code></pre>
 <h3 id="html-templates">HTML Templates</h3>
 <p>To create an HTML template with pandoc first use:</p>
 <pre><code>pandoc -D html &gt; &lt;TEMPLATE_NAME&gt;</code></pre>
@@ -449,7 +455,8 @@ sudo btrfs scrub status /</code></pre>
 <pre><code>sudo apt install apt-cacher-ng</code></pre>
 <p>And then select No at the prompt.</p>
 <p>Run the service with:</p>
-<pre><code>sudo systemctl start apt-cacher-ng</code></pre>
+<pre><code>sudo systemctl start apt-cacher-ng
+</code></pre>
 <h3 id="use">Use</h3>
 <p>For debian:</p>
 <p>Change <code>/etc/apt/sources.list</code> file and include the following as an example:</p>
