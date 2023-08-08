@@ -1,0 +1,578 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Horrible Linux Guide</title>
+        <meta name="robots" content="noindex" />
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var html = document.querySelector('html');
+            var sidebar = null;
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="USM/usersandmodify.html"><strong aria-hidden="true">1.</strong> Users, Groups, and Modify</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="USM/usersandmodify.html"><strong aria-hidden="true">1.1.</strong> Users and Modify</a></li><li class="chapter-item expanded "><a href="USM/options.html"><strong aria-hidden="true">1.2.</strong> Options</a></li></ol></li><li class="chapter-item expanded "><a href="filesystems/index.html"><strong aria-hidden="true">2.</strong> Filesystems</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="filesystems/btrfs/index.html"><strong aria-hidden="true">2.1.</strong> BTRFS</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="filesystems/btrfs/formating.html"><strong aria-hidden="true">2.1.1.</strong> Formating</a></li><li class="chapter-item expanded "><a href="filesystems/btrfs/defragment.html"><strong aria-hidden="true">2.1.2.</strong> Defragment</a></li><li class="chapter-item expanded "><a href="filesystems/btrfs/mc.html"><strong aria-hidden="true">2.1.3.</strong> Mounting And Compression</a></li><li class="chapter-item expanded "><a href="filesystems/btrfs/scrub.html"><strong aria-hidden="true">2.1.4.</strong> Scrub</a></li></ol></li><li class="chapter-item expanded "><a href="filesystems/ext4/index.html"><strong aria-hidden="true">2.2.</strong> EXT4</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="filesystems/ext4/defrag.html"><strong aria-hidden="true">2.2.1.</strong> Defragment</a></li><li class="chapter-item expanded "><a href="filesystems/ext4/filesystemcheck.html"><strong aria-hidden="true">2.2.2.</strong> Filesystem Check</a></li></ol></li><li class="chapter-item expanded "><a href="filesystems/ramfs/mount.html"><strong aria-hidden="true">2.3.</strong> RAMFS</a></li></ol></li><li class="chapter-item expanded "><a href="fstab/index.html"><strong aria-hidden="true">3.</strong> FSTAB</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="fstab/mount.html"><strong aria-hidden="true">3.1.</strong> Mount</a></li><li class="chapter-item expanded "><a href="fstab/bind.html"><strong aria-hidden="true">3.2.</strong> Bind</a></li></ol></li><li class="chapter-item expanded "><a href="security/index.html"><strong aria-hidden="true">4.</strong> Security</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="security/cryptsetup/index.html"><strong aria-hidden="true">4.1.</strong> Cryptsetup</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="security/cryptsetup/create.html"><strong aria-hidden="true">4.1.1.</strong> Create a LUKS encrypted volume</a></li><li class="chapter-item expanded "><a href="security/cryptsetup/open.html"><strong aria-hidden="true">4.1.2.</strong> Open a LUKS encrypted volume</a></li><li class="chapter-item expanded "><a href="security/cryptsetup/mount.html"><strong aria-hidden="true">4.1.3.</strong> Mount a LUKS encrypted volume</a></li><li class="chapter-item expanded "><a href="security/cryptsetup/close.html"><strong aria-hidden="true">4.1.4.</strong> Close a LUKS encrypted volume</a></li><li class="chapter-item expanded "><a href="security/cryptsetup/modify.html"><strong aria-hidden="true">4.1.5.</strong> Modify a LUKS encrypted volume</a></li></ol></li><li class="chapter-item expanded "><a href="security/sec_bits.html"><strong aria-hidden="true">4.2.</strong> Security Bits</a></li><li class="chapter-item expanded "><a href="security/sscert/index.html"><strong aria-hidden="true">4.3.</strong> Adding a self-signed certificate</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="security/sscert/fedora.html"><strong aria-hidden="true">4.3.1.</strong> Fedora</a></li><li class="chapter-item expanded "><a href="security/sscert/ubuntu.html"><strong aria-hidden="true">4.3.2.</strong> Ubuntu</a></li><li class="chapter-item expanded "><a href="security/sscert/alpine.html"><strong aria-hidden="true">4.3.3.</strong> Alpine Linux</a></li><li class="chapter-item expanded "><a href="security/sscert/pmos.html"><strong aria-hidden="true">4.3.4.</strong> PostmarketOS</a></li></ol></li></ol></li><li class="chapter-item expanded "><a href="systemd/index.html"><strong aria-hidden="true">5.</strong> SystemD</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="systemd/boottime.html"><strong aria-hidden="true">5.1.</strong> Show boot time in seconds</a></li><li class="chapter-item expanded "><a href="systemd/running-services.html"><strong aria-hidden="true">5.2.</strong> View running services</a></li></ol></li><li class="chapter-item expanded "><a href="smartctl/index.html"><strong aria-hidden="true">6.</strong> Smartctl</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="smartctl/view.html"><strong aria-hidden="true">6.1.</strong> View Data</a></li><li class="chapter-item expanded "><a href="smartctl/run.html"><strong aria-hidden="true">6.2.</strong> Run Smart Data tests</a></li></ol></li><li class="chapter-item expanded "><a href="tools/index.html"><strong aria-hidden="true">7.</strong> Tools</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="tools/pandoc.html"><strong aria-hidden="true">7.1.</strong> Pandoc</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="tools/pandoc/converting.html"><strong aria-hidden="true">7.1.1.</strong> Converting</a></li><li class="chapter-item expanded "><a href="tools/pandoc/templates.html"><strong aria-hidden="true">7.1.2.</strong> HTML Templates</a></li></ol></li><li class="chapter-item expanded "><a href="tools/wget/wget.html"><strong aria-hidden="true">7.2.</strong> WGET</a></li><li class="chapter-item expanded "><a href="tools/aptcacherng/index.html"><strong aria-hidden="true">7.3.</strong> apt-cacher-ng</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="tools/aptcacherng/installation.html"><strong aria-hidden="true">7.3.1.</strong> Installation</a></li><li class="chapter-item expanded "><a href="tools/aptcacherng/use.html"><strong aria-hidden="true">7.3.2.</strong> Use</a></li></ol></li></ol></li><li class="chapter-item expanded "><a href="containers/index.html"><strong aria-hidden="true">8.</strong> Containers</a></li><li class="chapter-item expanded "><a href="devices/index.html"><strong aria-hidden="true">9.</strong> Devices</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="devices/loop/index.html"><strong aria-hidden="true">9.1.</strong> Loop Devices</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="devices/loop/create.html"><strong aria-hidden="true">9.1.1.</strong> Create a loop devices</a></li><li class="chapter-item expanded "><a href="devices/loop/partition.html"><strong aria-hidden="true">9.1.2.</strong> Partition a loop device</a></li></ol></li></ol></li><li class="chapter-item expanded "><a href="file-manipulation/index.html"><strong aria-hidden="true">10.</strong> File Manipulation</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="file-manipulation/find/index.html"><strong aria-hidden="true">10.1.</strong> Find</a></li><li class="chapter-item expanded "><a href="file-manipulation/rsync/rsync.html"><strong aria-hidden="true">10.2.</strong> rsync</a></li></ol></li><li class="chapter-item expanded "><a href="shell/index.html"><strong aria-hidden="true">11.</strong> Shell</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="shell/detatch/index.html"><strong aria-hidden="true">11.1.</strong> Detatch Processes from Shell</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Horrible Linux Guide</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h2 id="users-and-modify"><a class="header" href="#users-and-modify">Users and Modify</a></h2>
+<p>To create a new user use the useradd command:</p>
+<pre><code>useradd &lt;USERNAME&gt;
+</code></pre>
+<p>And to modify the user use the usermod command:</p>
+<pre><code>usermod &lt;MODIFY&gt; &lt;USER&gt;
+</code></pre>
+<p>For example, to add a user to a group use the following command:</p>
+<pre><code>usermod -a -G sudo,wheel &lt;USERNAME&gt;
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h2 id="users-and-modify-1"><a class="header" href="#users-and-modify-1">Users and Modify</a></h2>
+<p>To create a new user use the useradd command:</p>
+<pre><code>useradd &lt;USERNAME&gt;
+</code></pre>
+<p>And to modify the user use the usermod command:</p>
+<pre><code>usermod &lt;MODIFY&gt; &lt;USER&gt;
+</code></pre>
+<p>For example, to add a user to a group use the following command:</p>
+<pre><code>usermod -a -G sudo,wheel &lt;USERNAME&gt;
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h2 id="options"><a class="header" href="#options">Options</a></h2>
+<p>To create a homedirectory while creating the user add the -m option:</p>
+<pre><code>useradd -m &lt;USERNAME&gt;
+</code></pre>
+<p>To create a custom home directory use:</p>
+<pre><code>useradd -m -d &lt;DIRECTORY&gt; &lt;USERNAME&gt;
+</code></pre>
+<p>To create a new user and add to a primary group at creation use:</p>
+<pre><code>useradd -g &lt;GROUP&gt; &lt;USERNAME&gt;
+</code></pre>
+<p>A user may belong to many secondary groups. Seperate each group name with an apostrophe. To create a new user and add to a secondary group at creation use:</p>
+<pre><code>useradd -G &lt;GROUP,GROUP&gt; &lt;USERNAME&gt;
+</code></pre>
+<p>To create a new user using a specific shell use the -s option.</p>
+<pre><code>useradd -s /bin/bash &lt;USERNAME&gt;
+</code></pre>
+<p>To create a new user and add descriptive comment use the -c option:</p>
+<pre><code>useradd -c &quot;COMMENT&quot; &lt;USERNAME&gt;
+</code></pre>
+<p>To create a new user and add an expiration date to the account use:</p>
+<pre><code>useradd -e &lt;DATE&gt; &lt;USERNAME&gt;
+</code></pre>
+<p>Example:</p>
+<pre><code>useradd -e 2021-01-01 user
+</code></pre>
+<p>To create a system user use the -r option:</p>
+<pre><code>useradd -r &lt;USERNAME&gt;
+</code></pre>
+<p>To add a user to a specific group use the command:</p>
+<pre><code>usermod -a -G &lt;GROUP&gt; &lt;USER&gt;
+</code></pre>
+<p>To disable a specific user from being able to login use:</p>
+<pre><code>usermod -s /sbin/nologin &lt;USER&gt;
+</code></pre>
+<p>To force a user to change their password use:</p>
+<pre><code>usermod -l &lt;USERNAME&gt;
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="filesystems"><a class="header" href="#filesystems">Filesystems</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="btrfs"><a class="header" href="#btrfs">BTRFS</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h3 id="formatting"><a class="header" href="#formatting">Formatting</a></h3>
+<p>In order to format the filesystem for a single partition simply using:</p>
+<pre><code>mkfs.btrfs /dev/XXX
+</code></pre>
+<p>When using raid you must specify:</p>
+<pre><code>mkfs.btrfs -m &lt;RAID-TYPE&gt; -d &lt;RAID-TYPE&gt; /dev/XXX /dev/XXX
+</code></pre>
+<p>-m: specify how the metadata will be stored.</p>
+<p>-d: specify how the data will be stored.</p>
+<p>For example: If you want to create a two disk set in raid1, do the following:</p>
+<pre><code>mkfs.btrfs -m raid1 -d raid1 /dev/sda /dev/sdb
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h3 id="defragment"><a class="header" href="#defragment">Defragment</a></h3>
+<p>To defragment your volumes you can:</p>
+<pre><code>sudo btrfs fi defragment &lt;OPTIONS&gt; &lt;TARGET&gt;
+</code></pre>
+<p>This will defragment all files in the root. Example:</p>
+<pre><code>sudo btrfs filesystem defragment /
+</code></pre>
+<p>You can use the defragment command to compress all the uncompressed files on the volume.</p>
+<pre><code>sudo btrfs fi defragment -rfc&lt;COMPRESSION_TYPE&gt; &lt;TARGET&gt;
+</code></pre>
+<p>where:</p>
+<p>-r will recursively defragment files.
+-f will force
+-c compression type</p>
+<p>An example for defragmenting and compressing the root:</p>
+<pre><code>sudo btrfs fi defragment -rfclzo /
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h3 id="mounting-and-compression"><a class="header" href="#mounting-and-compression">Mounting and Compression</a></h3>
+<p>Compression:</p>
+<p>btrfs uses multiple compression methods.</p>
+<p>ZLIB -- slower, higher compression ratio (uses zlib level 3 setting, you can see the zlib level difference between 1 and 6 in zlib sources). Level from 1-9.</p>
+<p>LZO -- faster compression and decompression than zlib, worse compression ratio, designed to be fast</p>
+<p>ZSTD -- (since v4.14) compression comparable to zlib with higher compression/decompression speeds and different ratio levels (details)  Level from 1 - 15.</p>
+<p>To mount a btrfs filesystem with compression use:</p>
+<pre><code>sudo mount /dev/XXX &lt;TARGET&gt; -o compress=($TYPE)
+</code></pre>
+<p>To force compression use:</p>
+<pre><code>sudo mount /dev/XXX &lt;TARGET&gt; -o compress-force=($TYPE)
+</code></pre>
+<p>Example:</p>
+<pre><code>sudo mount /dev/sda mountfolder -compress=zstd:10
+</code></pre>
+<p>Using compression with fstab:</p>
+<pre><code>&lt;UUID&gt; &lt;MOUNT_POINT&gt; btrfs default,auto,compress=($TYPE) 0 0
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h3 id="scrub"><a class="header" href="#scrub">Scrub</a></h3>
+<p>Running scrub will check the filesystem for errors and can be ran with:</p>
+<pre><code>sudo btrfs scrub start &lt;TARGET&gt;
+</code></pre>
+<p>To check the status of a scrub run:</p>
+<pre><code>sudo btrfs scrub status &lt;TARGET&gt;
+</code></pre>
+<p>Examples:</p>
+<pre><code>sudo btrfs scrub start /
+</code></pre>
+<pre><code>sudo btrfs scrub status /
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="ext4"><a class="header" href="#ext4">EXT4</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h3 id="defragment-1"><a class="header" href="#defragment-1">Defragment</a></h3>
+<p>To defrag an EXT4 volume:</p>
+<pre><code>e4defrag &lt;TARGET&gt;
+</code></pre>
+<p>example:</p>
+<pre><code>e4defrag /
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h3 id="filesystem-check"><a class="header" href="#filesystem-check">Filesystem check</a></h3>
+<p>To check ext4 integredy:</p>
+<pre><code>e2fsck &lt;TARGET&gt;
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h3 id="mount-a-ramdisk-using-ramfs"><a class="header" href="#mount-a-ramdisk-using-ramfs">Mount a ramdisk using RamFS</a></h3>
+<p>RamFS
+You can use RamFS to create a ramdisk on your computer using the mount command:</p>
+<pre><code>mount -t ramfs -o size=&lt;SIZE&gt; ramfs &lt;PATH&gt;
+```	
+example:
+</code></pre>
+<p>mount -t ramfs -o size=1g ramfs /ramdisk</p>
+<pre><code></code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="fstab"><a class="header" href="#fstab">FSTAB</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h2 id="mount"><a class="header" href="#mount">Mount</a></h2>
+<pre><code>&lt;UUID&gt; &lt;TARGET&gt; &lt;TYPE&gt; &lt;OPTION&gt; &lt;FIELD&gt; &lt;FIELD&gt;
+</code></pre>
+<p>Example:</p>
+<pre><code>UUID=acab18c0-db67-4a61-852e-76238cf61db6 /mountpoint btrfs defaults 0 0
+</code></pre>
+<p>You can get the UUID with the <code>blkid</code> command;</p>
+<p>FIRST 0 = Filesystem dump. Typically 0.</p>
+<p>second 0 - Filesystem check order upon boot. 0 for no check, 1 for root directory, and 2 for check.</p>
+<p>Options:</p>
+<p>auto - file system will mount automatically at boot, or when the command ‘mount -a’ is issued.</p>
+<p>noauto - the filesystem is mounted only when you tell it to.</p>
+<p>exec - allow the execution binaries that are on that partition (default).</p>
+<p>noexec - do not allow binaries to be executed on the filesystem.</p>
+<p>ro - mount the filesystem read only.</p>
+<p>rw - mount the filesystem read-write.</p>
+<p>sync - I/O should be done synchronously.</p>
+<p>async - I/O should be done asynchronously.</p>
+<p>flush - specific option for FAT to flush data more often, thus making copy dialogs or progress bars to stays up until things are on the disk.</p>
+<p>user - permit any user to mount the filesystem (implies noexec,nosuid,nodev unless overridden).</p>
+<p>nouser - only allow root to mount the filesystem (default).</p>
+<p>defaults - default mount settings (equivalent to rw,suid,dev,exec,auto,nouser,async).</p>
+<p>suid - allow the operation of suid, and sgid bits. They are mostly used to allow users on a computer system to execute binary executables with temporarily elevated privileges in order to perform a specific task.</p>
+<p>nosuid - block the operation of suid, and sgid bits.</p>
+<p>noatime - do not update inode access times on the filesystem. Can help performance.</p>
+<p>nodiratime - do not update directory inode access times on the filesystem. Can help performance. You do not need to enable this flag if you have already enabled noatime.</p>
+<p>relatime - update inode access times relative to modify or change time. Access time is only updated if the previous access time was earlier than the current modify or change time (similar to noatime, but doesn’t break mutt or other applications that need to know if a file has been read since the last time it was modified). Can help performance.</p>
+<div style="break-before: page; page-break-before: always;"></div><h2 id="bind"><a class="header" href="#bind">Bind</a></h2>
+<pre><code>&lt;SOURCE&gt; &lt;DESTINATION&gt;        none    bind
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="security"><a class="header" href="#security">Security</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="cryptsetup"><a class="header" href="#cryptsetup">Cryptsetup</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h3 id="create-a-luks-encrypted-volume"><a class="header" href="#create-a-luks-encrypted-volume">Create a LUKS encrypted volume</a></h3>
+<p>To create a LUKS encrypted volume use the following syntax:</p>
+<pre><code>sudo cryptsetup luksFormat /dev/XXX --type luks2
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h3 id="open-a-luks-encrypted-volume"><a class="header" href="#open-a-luks-encrypted-volume">Open a LUKS encrypted volume</a></h3>
+<p>To open a LUKS encrypted volume:</p>
+<pre><code>sudo cryptsetup open /dev/XXX &lt;NAME&gt;
+</code></pre>
+<p>Example:</p>
+<pre><code>sudo cryptsetup open /dev/XXX my_encrypted_volume
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h3 id="mount-a-luks-encrypted-volume"><a class="header" href="#mount-a-luks-encrypted-volume">Mount a LUKS encrypted volume</a></h3>
+<p>To mount a volume:</p>
+<pre><code>sudo mount /dev/mapper/&lt;NAME&gt; &lt;TARGET&gt;
+</code></pre>
+<p>Example:</p>
+<pre><code>sudo mount /dev/mapper/my_encrypted_volume my_encrypted_folder
+</code></pre>
+<p>You must make sure to format the volume before you mount it for the first time:</p>
+<pre><code>sudo mkfs.&lt;TYPE&gt; /dev/mapper/&lt;NAME&gt;
+</code></pre>
+<p>Example:</p>
+<pre><code>sudo mkfs.btrfs /dev/mapper/my_encrypted_volume
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h3 id="close-a-luks-encrypted-volume"><a class="header" href="#close-a-luks-encrypted-volume">Close a LUKS encrypted volume</a></h3>
+<p>To close the encrypted volume use:</p>
+<pre><code>sudo cryptsetup close &lt;NAME&gt;
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h3 id="modify-a-luks-encrypted-volume"><a class="header" href="#modify-a-luks-encrypted-volume">Modify a LUKS encrypted volume</a></h3>
+<p>To show statistics and key slots of the encrypted volume use:</p>
+<pre><code>sudo cryptsetup dump /dev/XXX
+</code></pre>
+<p>To remove a key from the volume:</p>
+<pre><code>sudo cryptsetup luksKillSlot /dev/XXX &lt;KEY#&gt;
+</code></pre>
+<p>Example:</p>
+<pre><code>sudo cryptsetup luksKillSlot /dev/XXX 1
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h2 id="security-bits"><a class="header" href="#security-bits">Security Bits</a></h2>
+<div class="table-wrapper"><table><thead><tr><th>Num</th><th>Permissions</th><th>Abbr.</th><th>Binary</th></tr></thead><tbody>
+<tr><td>7</td><td>read, write and execute</td><td>rwx</td><td>111</td></tr>
+<tr><td>6</td><td>read and write</td><td>rw-</td><td>110</td></tr>
+<tr><td>5</td><td>read and execute</td><td>r-x</td><td>101</td></tr>
+<tr><td>4</td><td>read only</td><td>r--</td><td>100</td></tr>
+<tr><td>3</td><td>write and execute</td><td>-wx</td><td>011</td></tr>
+<tr><td>2</td><td>write only</td><td>-w-</td><td>010</td></tr>
+<tr><td>1</td><td>execute only</td><td>--x</td><td>001</td></tr>
+<tr><td>0</td><td>none</td><td>---</td><td>000</td></tr>
+</tbody></table>
+</div><div style="break-before: page; page-break-before: always;"></div><h1 id="adding-a-self-signed-certificate"><a class="header" href="#adding-a-self-signed-certificate">Adding a self-signed certificate</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h3 id="fedora"><a class="header" href="#fedora">Fedora</a></h3>
+<p>Place the certificate in:</p>
+<pre><code>/etc/pki/ca-trust/source/anchors/
+</code></pre>
+<p>And then run command:</p>
+<pre><code>sudo update-ca-trust
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h3 id="ubuntu"><a class="header" href="#ubuntu">Ubuntu</a></h3>
+<p>Copy certificate, usually a .pem to:</p>
+<pre><code>/etc/ssl/certs
+</code></pre>
+<p>And then run command:</p>
+<pre><code>update-ca-certificates
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h3 id="alpine-linux"><a class="header" href="#alpine-linux">Alpine Linux</a></h3>
+<p>Copy certificate, usually a .pem to:</p>
+<pre><code>/usr/local/share/certs
+</code></pre>
+<p>And then run command:</p>
+<pre><code>sudo update-ca-certificates
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="postmarketos"><a class="header" href="#postmarketos">PostmarketOS</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="systemd"><a class="header" href="#systemd">SystemD</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h2 id="show-boot-time-in-seconds"><a class="header" href="#show-boot-time-in-seconds">Show boot time in seconds</a></h2>
+<pre><code>systemd-analyze
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h2 id="view-a-list-of-running-services"><a class="header" href="#view-a-list-of-running-services">View a list of running services:</a></h2>
+<pre><code>systemctl list-units --type=service --state=active
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="smartctl"><a class="header" href="#smartctl">Smartctl</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h2 id="view-smart-data-by-using"><a class="header" href="#view-smart-data-by-using">View smart data by using:</a></h2>
+<pre><code>smartctl -a /dev/XXX
+</code></pre>
+<p>Or for viewing smart data on a USB harddisk enclosure specify the device type:</p>
+<pre><code>smartctl -a -d sat /dev/XXX
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h2 id="run-smart-data-tests-by-using"><a class="header" href="#run-smart-data-tests-by-using">Run smart data tests by using:</a></h2>
+<pre><code>smartctl -t &lt;short|long|conveyence&gt; /dev/XXX
+</code></pre>
+<p>Then by using the following you can view whether or not the test has completed and any errors found:</p>
+<pre><code>smartctl -l selftest /dev/XXX
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="tools"><a class="header" href="#tools">Tools</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="pandoc"><a class="header" href="#pandoc">Pandoc</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h3 id="converting"><a class="header" href="#converting">Converting</a></h3>
+<p>To generate an html file from a markdown:</p>
+<pre><code>pandoc -s input.md -o output.html
+</code></pre>
+<p>To generate a markdown from an html:</p>
+<pre><code>pandoc -s -r html &lt;WEBSITE&gt; -o &lt;OUTPUT&gt;
+</code></pre>
+<p>Example:</p>
+<pre><code>pandoc -s -r html https://en.wikipedia.org/wiki/Pandoc -o pandoc.txt
+</code></pre>
+<p>Adding in <code>-t gfm-raw_html</code> can clean up the text file making it easier to read. Example:</p>
+<pre><code>pandoc -s -t gfm-raw_html -r html https://en.wikipedia.org/wiki/Pandoc -o pandoc.txt
+
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h3 id="html-templates"><a class="header" href="#html-templates">HTML Templates</a></h3>
+<p>To create an HTML template with pandoc first use:</p>
+<pre><code>pandoc -D html &gt; &lt;TEMPLATE_NAME&gt;
+</code></pre>
+<p>Example:</p>
+<pre><code>pandoc-D html &gt; template.html
+</code></pre>
+<p>You can then open and edit template.html and make your changes.</p>
+<p>Then use the template with a markdown file to generate a html file.</p>
+<pre><code>pandoc -s --template template.html input.md -o output.html
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="wget"><a class="header" href="#wget">WGET</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="apt-cacher-ng"><a class="header" href="#apt-cacher-ng">apt-cacher-ng</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h3 id="installation"><a class="header" href="#installation">Installation</a></h3>
+<p>To install run:</p>
+<pre><code>sudo apt install apt-cacher-ng
+</code></pre>
+<p>And then select No at the prompt.</p>
+<p>Run the service with:</p>
+<pre><code>sudo systemctl start apt-cacher-ng
+
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h3 id="use"><a class="header" href="#use">Use</a></h3>
+<h4 id="for-debian"><a class="header" href="#for-debian">For debian:</a></h4>
+<p>Change <code>/etc/apt/sources.list</code> file and include the following as an example:</p>
+<pre><code>deb http://192.168.0.20:3142/ports.ubuntu.com/ubuntu-ports focal main restricted
+deb http://192.168.0.20:3142/ports.ubuntu.com/ubuntu-ports focal-updates main restricted
+deb http://192.168.0.20:3142/ports.ubuntu.com/ubuntu-ports focal universe
+deb http://192.168.0.20:3142/ports.ubuntu.com/ubuntu-ports focal-updates universe
+deb http://192.168.0.20:3142/ports.ubuntu.com/ubuntu-ports focal multiverse
+deb http://192.168.0.20:3142/ports.ubuntu.com/ubuntu-ports focal-updates multiverse
+deb http://192.168.0.20:3142/ports.ubuntu.com/ubuntu-ports focal-backports main restricted universe multiverse
+deb http://192.168.0.20:3142/ports.ubuntu.com/ubuntu-ports focal-security main restricted
+deb http://192.168.0.20:3142/ports.ubuntu.com/ubuntu-ports focal-security universe
+deb http://192.168.0.20:3142/ports.ubuntu.com/ubuntu-ports focal-security multiverse
+</code></pre>
+<p>For https:</p>
+<pre><code>deb http://192.168.0.20:3142/HTTPS///get.docker.com/ubuntu docker main
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="containers"><a class="header" href="#containers">Containers</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="devices"><a class="header" href="#devices">Devices</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="loop-devices"><a class="header" href="#loop-devices">Loop Devices</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h3 id="create-a-loop-device"><a class="header" href="#create-a-loop-device">Create a loop device</a></h3>
+<p>To create a loop device you must first create a file. As an example the following command will create a zeroed file with 100MB capacity.</p>
+<pre><code>dd if=/dev/zero of=$FILENAME bs=1M count=100 status=progress; sync
+</code></pre>
+<p>Then create the loop device using the folowing:</p>
+<pre><code>losetup -fP $FILENAME
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h3 id="partition-a-loop-device"><a class="header" href="#partition-a-loop-device">Partition a loop device</a></h3>
+<p>You can partition or modify the device using the fdisk utility. It is as simple as with any other device:</p>
+<pre><code>fdisk /dev/loop0
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="file-manipulation"><a class="header" href="#file-manipulation">File Manipulation</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="find"><a class="header" href="#find">Find</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h2 id="rsync"><a class="header" href="#rsync">rsync</a></h2>
+<p>Important:</p>
+<pre><code>rsync dir1/ dir2
+</code></pre>
+<p>This copies the files inside dir1 without creating a new dir1 directory in dir2.</p>
+<pre><code>rysnc dir1 dir2/
+</code></pre>
+<p>This copies the entire directory and places it into dir2/</p>
+<div class="table-wrapper"><table><thead><tr><th>Arguments:</th><th>Description</th></tr></thead><tbody>
+<tr><td>-a</td><td>Copies everything including symbolic links</td></tr>
+<tr><td>-n</td><td>Dry run for testing</td></tr>
+<tr><td>-v</td><td>Verbose</td></tr>
+<tr><td>-z</td><td>compresses files for network transfer.  Allows faster network speeds.</td></tr>
+<tr><td>-P</td><td>stands for progress and partial.  It only transfers changed files.</td></tr>
+<tr><td>--delete</td><td>This will sync any files that have been deleted from dir1 and will delete them on dir2 as well.</td></tr>
+<tr><td>--backup</td><td>It is used in conjunction with the --backup-dir option, which specifies the directory where the backup files should be stored. rsync -a --delete --backup --backup-dir=/path/to/backups /path/to/source destination</td></tr>
+</tbody></table>
+</div><div style="break-before: page; page-break-before: always;"></div><h1 id="shell"><a class="header" href="#shell">Shell</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h2 id="detach-processes-from-shell"><a class="header" href="#detach-processes-from-shell">Detach processes from shell</a></h2>
+<h3 id="disown"><a class="header" href="#disown">disown</a></h3>
+<p>Disown will detach a process from the shell allowing you to exit the server and allow the process to continue running.</p>
+<p>An example of use:</p>
+<pre><code>rsync &lt;OPTION&gt; &lt;SOURCE&gt; &lt;DEST&gt;
+</code></pre>
+<p>Once running suspend the process using ^Z. Then use the “bg” command to run in the process in the background. Afterwards use the command “disown” to detach the process from the active shell.</p>
+<h3 id="nohup"><a class="header" href="#nohup">nohup</a></h3>
+<p>Nohup does the same as disown. For example:</p>
+<pre><code>nohup apt upgrade 
+</code></pre>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
+
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+        <script>
+        window.addEventListener('load', function() {
+            window.setTimeout(window.print, 100);
+        });
+        </script>
+
+    </div>
+    </body>
+</html>
