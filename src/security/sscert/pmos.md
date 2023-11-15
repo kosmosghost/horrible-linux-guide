@@ -1,7 +1,7 @@
 # PostmarketOS
 
 
-Copy certificate, usually a .pem to:
+Copy certificate to: (MUST BE A .crt)
 
 ```
 /usr/local/share/ca-certificates
