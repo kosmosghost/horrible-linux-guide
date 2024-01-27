@@ -51,6 +51,7 @@
         - [Use](./tools/aptcacherng/use.md)
 
 - [Containers](./containers/readme.md)
+    - [Namespaces](./containers/namespaces.md)
 
 - [Devices](./devices/readme.md)
     - [Loop Devices](./devices/loop/readme.md)
@@ -63,3 +64,6 @@
 
 - [Shell](./shell/readme.md)
     - [Detatch Processes from Shell](./shell/detatch/readme.md) 
+
+- [Display](./display/readme.md)
+    - [Gnome](./display/gnome.md)
