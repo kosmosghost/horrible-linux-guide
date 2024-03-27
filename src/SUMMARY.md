@@ -4,13 +4,7 @@
 
 - [Filesystems](./filesystems/readme.md)
     - [BTRFS](./filesystems/btrfs/readme.md)
-        - [Formating](./filesystems/btrfs/formating.md)
-        - [Defragment](./filesystems/btrfs/defragment.md)
-        - [Mounting And Compression](./filesystems/btrfs/mc.md)
-        - [Scrub](./filesystems/btrfs/scrub.md)
     - [EXT4](./filesystems/ext4/readme.md)
-        - [Defragment](./filesystems/ext4/defrag.md)
-        - [Filesystem Check](./filesystems/ext4/filesystemcheck.md)
     - [RAMFS](./filesystems/ramfs/mount.md)
 
 - [FSTAB](./fstab/readme.md)
