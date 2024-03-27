@@ -1,0 +1,1 @@
+sudo qemu-system-x86_64 -enable-kvm -m 2048 -drive file=arch.qcow2,media=disk,if=virtio -drive if=pflash,format=raw,unit=0,readonly,file=/usr/share/OVMF/OVMF_CODE.fd -drive if=pflash,format=raw,unit=1,file=/usr/share/OVMF/OVMF_VARS.fd -cdrom archlinux-2024.02.01-x86_64.iso -boot d -nic user,model=virtio -serial stdio

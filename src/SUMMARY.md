@@ -32,10 +32,11 @@
         - [Ubuntu](./security/sscert/ubuntu.md)
         - [Alpine Linux](./security/sscert/alpine.md)
         - [PostmarketOS](./security/sscert/pmos.md)
+    - [SSL](./security/sscert/openssl.md)
 
 - [SystemD](./systemd/readme.md)
-    - [Show boot time in seconds](./systemd/boottime.md)
     - [View running services](./systemd/running-services.md)
+    - [systemd-analyze](./systemd/analyze.md)
 
 - [Smartctl](./smartctl/readme.md)
     - [View Data](./smartctl/view.md)
@@ -53,6 +54,8 @@
 - [Containers](./containers/readme.md)
     - [Namespaces](./containers/namespaces.md)
 
+- [Virtual Machines](./virtual-machines/index.md)
+
 - [Devices](./devices/readme.md)
     - [Loop Devices](./devices/loop/readme.md)
         - [Create a loop devices](./devices/loop/create.md)
@@ -67,3 +70,7 @@
 
 - [Display](./display/readme.md)
     - [Gnome](./display/gnome.md)
+
+- [Git](./git/readme.md)
+
+- [SSH](./ssh/readme.md)
