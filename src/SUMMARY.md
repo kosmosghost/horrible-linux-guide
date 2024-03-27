@@ -1,8 +1,6 @@
 # Summary
 
-- [Users, Groups, and Modify](./USM/usersandmodify.md)
-    - [Users and Modify](./USM/usersandmodify.md)
-    - [Options](./USM/options.md)
+- [Users, Groups, and Modify](./USM/readme.md)
 
 - [Filesystems](./filesystems/readme.md)
     - [BTRFS](./filesystems/btrfs/readme.md)
